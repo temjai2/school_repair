@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เข้าสู่ระบบ | ระบบแจ้งซ่อมภายในโรงเรียน</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page">
+
+  <section class="login-brand">
+    <div class="brand-mark">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    </div>
+    <h1>ระบบแจ้งซ่อม<br>ภายในโรงเรียน</h1>
+    <p>ระบบภายในองค์กรสำหรับครู นักเรียน และบุคลากร ใช้แจ้งปัญหาที่ชำรุด ติดตามสถานะการซ่อม พร้อมแดชบอร์ดสำหรับผู้ดูแลระบบ</p>
+    <div class="brand-points">
+      <span class="brand-point"><i>1</i> แจ้งซ่อมได้ทุกที่ ระบุจุดชำรุดและความเร่งด่วน</span>
+      <span class="brand-point"><i>2</i> ผู้ดูแลระบบมอบหมายงานให้ช่างผู้รับผิดชอบ</span>
+      <span class="brand-point"><i>3</i> ติดตามสถานะได้ตลอดเวลา จนงานเสร็จสิ้น</span>
+    </div>
+  </section>
+
+  <section class="login-panel">
+    <div class="login-card">
+      <h2>เข้าสู่ระบบ</h2>
+      <p>กรอกบัญชีผู้ใช้ของท่าน (บัญชีที่โรงเรียนจัดสรรให้)</p>
+
+      <div id="loginError" class="login-error" hidden></div>
+
+      <form id="loginForm" autocomplete="off">
+        <div class="field">
+          <label for="username">ชื่อผู้ใช้</label>
+          <input class="input" type="text" id="username" placeholder="เช่น admin" required>
+        </div>
+        <div class="field">
+          <label for="password">รหัสผ่าน</label>
+          <input class="input" type="password" id="password" placeholder="••••••••" required>
+        </div>
+        <button class="btn btn-block" type="submit">เข้าสู่ระบบ</button>
+      </form>
+
+        <p class="reg-link">ยังไม่มีบัญชี? <a href="register.html">สมัครสมาชิกใหม่</a></p>
+
+      <div class="demo-box">
+        <h4>บัญชีทดลอง (คลิกเพื่อกรอกอัตโนมัติ)</h4>
+        <button type="button" class="demo-row" data-u="admin" data-p="admin123"><b>admin / admin123</b><small>ผู้ดูแลระบบ</small></button>
+        <button type="button" class="demo-row" data-u="teacher" data-p="123456"><b>teacher / 123456</b><small>ครู (ผู้แจ้งซ่อม)</small></button>
+        <button type="button" class="demo-row" data-u="tech_elec" data-p="123456"><b>tech_elec / 123456</b><small>ช่างซ่อม</small></button>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/db.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

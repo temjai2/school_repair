@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แดชบอร์ดผู้ดูแลระบบ | ระบบแจ้งซ่อมภายในโรงเรียน</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="layout">
+
+  <aside class="sidebar">
+    <span class="logo"><span class="logo-mark">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+    </span> ระบบแจ้งซ่อมโรงเรียน</span>
+    <nav>
+      <button class="side-item active" data-view="viewDashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+        แดชบอร์ด
+      </button>
+      <button class="side-item" data-view="viewRepairs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+        จัดการแจ้งซ่อม
+      </button>
+      <button class="side-item" data-view="viewUsers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        จัดการผู้ใช้งาน
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="avatar" data-user-avatar></div>
+        <div class="info"><b data-user-name></b><small>ผู้ดูแลระบบ</small></div>
+        <button class="btn btn-outline btn-sm" data-logout>ออก</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ===== Dashboard ===== -->
+    <section id="viewDashboard" class="view active">
+      <div class="main-head">
+        <div><h1>ภาพรวมการแจ้งซ่อม</h1><p id="todayText"></p></div>
+        <button class="btn" data-view="viewRepairs">ไปที่จัดการแจ้งซ่อม</button>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card stat-click" data-goto-status="">
+          <div class="stat-icon" style="background:#e0e7ff;color:#3730a3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 12h6M9 16h6"/></svg>
+          </div>
+          <div><div class="stat-num" id="stTotal">0</div><div class="stat-label">งานทั้งหมด</div></div>
+        </div>
+        <div class="stat-card stat-click" data-goto-status="pending">
+          <div class="stat-icon" style="background:#fef3c7;color:#b45309">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div><div class="stat-num" id="stPending">0</div><div class="stat-label">รอดำเนินการ</div></div>
+        </div>
+        <div class="stat-card stat-click" data-goto-status="in_progress">
+          <div class="stat-icon" style="background:#ede9fe;color:#6d28d9">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div><div class="stat-num" id="stProgress">0</div><div class="stat-label">กำลังซ่อม / มอบหมายแล้ว</div></div>
+        </div>
+        <div class="stat-card stat-click" data-goto-status="done">
+          <div class="stat-icon" style="background:#d1fae5;color:#047857">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div><div class="stat-num" id="stDone">0</div><div class="stat-label">เสร็จสิ้น</div></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card card-pad">
+          <h3 class="card-title">จำนวนแจ้งซ่อมตามหมวดงาน</h3>
+          <div id="catChart"></div>
+        </div>
+        <div class="card card-pad">
+          <h3 class="card-title">สัดส่วนสถานะงานทั้งหมด</h3>
+          <div class="donut-wrap">
+            <div class="donut" id="statusDonut"></div>
+            <div class="legend" id="statusLegend"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-pad" style="padding-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+          <h3 class="card-title" style="margin:0">แจ้งซ่อมล่าสุด</h3>
+          <button class="btn btn-outline btn-sm" data-view="viewRepairs">ดูทั้งหมด</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>รหัส</th><th>เรื่อง / สถานที่</th><th>ผู้แจ้ง</th><th>ความเร่งด่วน</th><th>สถานะ</th><th>ช่างผู้รับผิดชอบ</th></tr></thead>
+            <tbody id="recentBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Repairs management ===== -->
+    <section id="viewRepairs" class="view">
+      <div class="main-head">
+        <div><h1>จัดการแจ้งซ่อม</h1><p>ตรวจสอบ มอบหมายช่าง และปิดงาน</p></div>
+      </div>
+      <div class="filter-tabs" id="repairGroupTabs">
+        <button type="button" class="ftab active" data-group="">งานทั้งหมด</button>
+        <button type="button" class="ftab" data-group="active">กำลังดำเนินการ</button>
+        <button type="button" class="ftab" data-group="finished">ซ่อมเสร็จแล้ว / ยกเลิก</button>
+      </div>
+      <div class="card card-pad" style="padding-bottom:12px">
+        <div class="toolbar" style="margin-bottom:0">
+          <input type="text" class="input search" id="rSearch" placeholder="ค้นหารหัส / เรื่อง / สถานที่...">
+          <select class="input" id="rStatus">
+            <option value="">สถานะ: ทั้งหมด</option>
+            <option value="pending">รอดำเนินการ</option>
+            <option value="assigned">มอบหมายแล้ว</option>
+            <option value="in_progress">กำลังซ่อม</option>
+            <option value="done">เสร็จสิ้น</option>
+            <option value="cancelled">ยกเลิก</option>
+          </select>
+          <select class="input" id="rCategory"><option value="">หมวด: ทั้งหมด</option></select>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>รหัส</th><th>เรื่อง / สถานที่</th><th>หมวด</th><th>ผู้แจ้ง</th><th>ความเร่งด่วน</th>
+                <th>ช่างผู้รับผิดชอบ</th><th>สถานะ</th><th>วันที่แจ้ง / เสร็จ</th><th style="text-align:right">จัดการ</th>
+              </tr>
+            </thead>
+            <tbody id="repairTableBody"></tbody>
+          </table>
+        </div>
+        <div id="repairEmpty" class="empty-state" hidden><b>ไม่พบรายการ</b>ลองปรับเงื่อนไขการค้นหา</div>
+      </div>
+    </section>
+
+    <!-- ===== Users management ===== -->
+    <section id="viewUsers" class="view">
+      <div class="main-head">
+        <div><h1>จัดการผู้ใช้งาน</h1><p>เพิ่มบัญชีครู นักเรียน และช่างซ่อมของโรงเรียน</p></div>
+        <button class="btn" id="addUserBtn">+ เพิ่มผู้ใช้งาน</button>
+      </div>
+      <div class="card card-pad" style="padding-bottom:12px">
+        <div class="toolbar" style="margin-bottom:0">
+          <input type="text" class="input search" id="uSearch" placeholder="ค้นหาชื่อ / ชื่อผู้ใช้...">
+          <select class="input" id="uRole">
+            <option value="">บทบาท: ทั้งหมด</option>
+            <option value="admin">ผู้ดูแลระบบ</option>
+            <option value="tech">ช่างซ่อม</option>
+            <option value="user">ผู้แจ้งซ่อม</option>
+          </select>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>รหัส</th><th>ชื่อ - สกุล</th><th>ชื่อผู้ใช้</th><th>บทบาท</th><th>เบอร์ติดต่อ</th><th style="text-align:right">จัดการ</th></tr></thead>
+            <tbody id="userTableBody"></tbody>
+          </table>
+        </div>
+        <div id="userEmpty" class="empty-state" hidden><b>ไม่พบผู้ใช้งาน</b></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- assign modal -->
+<div class="modal-backdrop" id="assignModal">
+  <div class="modal">
+    <div class="modal-head"><h3 id="assignTitle">มอบหมายงาน</h3>
+      <button class="modal-close" onclick="closeModal('assignModal')">✕</button></div>
+    <form id="assignForm">
+      <div class="modal-body">
+        <p style="font-size:.86rem;color:var(--muted)" id="assignInfo"></p>
+        <div class="field">
+          <label for="assignTech">ช่างผู้รับผิดชอบ *</label>
+          <select class="input" id="assignTech" required></select>
+        </div>
+        <div class="field">
+          <label for="assignPriority">ปรับความเร่งด่วน</label>
+          <select class="input" id="assignPriority">
+            <option value="normal">ปกติ</option>
+            <option value="urgent">เร่งด่วน</option>
+            <option value="emergency">ฉุกเฉิน</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-outline btn-sm" onclick="closeModal('assignModal')">ยกเลิก</button>
+        <button type="submit" class="btn btn-sm">บันทึกการมอบหมาย</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- repair detail modal -->
+<div class="modal-backdrop" id="detailModal">
+  <div class="modal modal-lg">
+    <div class="modal-head"><h3>รายละเอียดงาน <span id="dCode" class="code-tag"></span></h3>
+      <button class="modal-close" onclick="closeModal('detailModal')">✕</button></div>
+    <div class="modal-body" id="detailBody"></div>
+  </div>
+</div>
+
+<!-- user form modal -->
+<div class="modal-backdrop" id="userModal">
+  <div class="modal">
+    <div class="modal-head"><h3 id="userModalTitle">เพิ่มผู้ใช้งาน</h3>
+      <button class="modal-close" onclick="closeModal('userModal')">✕</button></div>
+    <form id="userForm">
+      <div class="modal-body">
+        <input type="hidden" id="uEditId">
+        <div class="field">
+          <label for="uName">ชื่อ - สกุล *</label>
+          <input class="input" id="uName" required placeholder="เช่น ครูสมศรี รักเรียน">
+        </div>
+        <div class="field">
+          <label for="uUsername">ชื่อผู้ใช้ (เข้าสู่ระบบ) *</label>
+          <input class="input" id="uUsername" required placeholder="ภาษาอังกฤษ ไม่มีวรรค">
+        </div>
+        <div class="field">
+          <label for="uPassword">รหัสผ่าน *</label>
+          <input class="input" id="uPassword" required minlength="4" placeholder="อย่างน้อย 4 ตัวอักษร">
+        </div>
+        <div class="field">
+          <label for="uRoleSelect">บทบาท *</label>
+          <select class="input" id="uRoleSelect" required>
+            <option value="user">ผู้แจ้งซ่อม (ครู/นักเรียน/บุคลากร)</option>
+            <option value="tech">ช่างซ่อม</option>
+            <option value="admin">ผู้ดูแลระบบ</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="uPhone">เบอร์ติดต่อ</label>
+          <input class="input" id="uPhone" placeholder="เช่น 08x-xxx-xxxx">
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-outline btn-sm" onclick="closeModal('userModal')">ยกเลิก</button>
+        <button type="submit" class="btn btn-sm">บันทึก</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- confirm modal -->
+<div class="modal-backdrop" id="confirmModal">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-head"><h3 id="confirmTitle">ยืนยัน</h3>
+      <button class="modal-close">✕</button></div>
+    <div class="modal-body"><p style="font-size:.9rem;color:#334155" id="confirmMessage"></p></div>
+    <div class="modal-foot">
+      <button class="btn btn-outline btn-sm" id="confirmCancelBtn">ปิด</button>
+      <button class="btn btn-danger btn-sm" id="confirmOkBtn">ยืนยัน</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/db.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
